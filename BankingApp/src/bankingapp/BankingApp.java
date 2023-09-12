@@ -28,27 +28,38 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class BankingApp {
-    
-  public static String acNum = "";
+
+    public static String acNum = "";
 
     public static void main(String args[]) throws ClassNotFoundException {
+
+        String url= ""; //paste your url
+        String user= ""; //paste your username
+        String password= ""; //paste your password
+
         JFrame f = new JFrame("Error");
+
         try {
-            //loading Drivers
+
+            // loading Drivers (My Sql)
             Class.forName("com.mysql.cj.jdbc.Driver");
+
             // Connect to the database
             Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://aws.connect.psdb.cloud/javaminorproject?sslMode=VERIFY_IDENTITY",
-                    "e0tqxzvnmwob1z8zsp6q",
-                    "pscale_pw_FL83lIXEwj7d3M26VQ04TLdQmaNx7MRu3OrLHEy04tz");
+                    url,
+                    user,
+                    password);
+
             // Create a statement to execute the query
             Statement smt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            new login(smt);
+
+            new login(smt);     //calling Login Frame Constructor
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(f, "Network coonection Error");
             System.exit(0);
         }
-    } 
+    }
 }
 
 class func {
